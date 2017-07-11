@@ -11,8 +11,8 @@
 
 
 uint32_t width = 1024, height = 768;
-double x_shift = -0.782174, y_shift = 0;
-double scale = 0.4;
+double x_shift = -0.7, y_shift = 0;
+double scale = 2.0;
 uint32_t iterations = 256;
 
 GLuint vbo_quad;
@@ -152,16 +152,18 @@ void onReshape(int screen_width, int screen_height) {
 //handles keyboard input (alphanumeric)
 void keyboardCallback(unsigned char key, int x, int y) {
     switch(key) {
-        case '2':
-        {
-            scale *= 1.1;
-            fprintf(stdout, "scale %lf\n", scale); fflush(stdout);
-            break;
-        }
         case '1':
         {
+            scale *= 1.1;
+            fprintf(stdout, "scale %g\n", scale);
+            fflush(stdout);
+            break;
+        }
+        case '2':
+        {
             if (scale > 0) scale *= 0.9;
-            fprintf(stdout, "scale %lf\n", scale); fflush(stdout);
+            fprintf(stdout, "scale %g\n", scale);
+            fflush(stdout);
             break;
         }
         case '4':
@@ -184,19 +186,20 @@ void keyboardCallback(unsigned char key, int x, int y) {
 void SpecialInput(int key, int x, int y) {
     switch(key) {
         case GLUT_KEY_UP:
-            y_shift += 0.1/scale;
+            y_shift += 0.1 * scale;
             break;
         case GLUT_KEY_DOWN:
-            y_shift -= 0.1/scale;
+            y_shift -= 0.1 * scale;
             break;
         case GLUT_KEY_LEFT:
-            x_shift -= 0.1/scale;
+            x_shift -= 0.1 * scale;
             break;
         case GLUT_KEY_RIGHT:
-            x_shift += 0.1/scale;
+            x_shift += 0.1 * scale;
             break;
     }
-    fprintf(stdout, "x_shift %lf y_shift %lf\n", x_shift, y_shift); fflush(stdout);
+    fprintf(stdout, "x_shift %.15f\ny_shift %.15f\n", x_shift, y_shift);
+    fflush(stdout);
     glutPostRedisplay();
 }
 

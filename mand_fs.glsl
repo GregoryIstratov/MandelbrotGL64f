@@ -6,9 +6,10 @@ uniform double scale, x_shift, y_shift;
 uniform int iterations;
 
 void main(void) {
-    double cx = 1.33333333333333333333333333 * (gl_FragCoord.x/width - 0.5) / scale + x_shift;
+    double wxh = double(width)/double(height);
+    double cx = wxh * (gl_FragCoord.x/width - 0.5) * scale + x_shift;
 
-    double cy = (gl_FragCoord.y/height - 0.5) / scale + y_shift;
+    double cy = (gl_FragCoord.y/height - 0.5) * scale + y_shift;
 
     double zx = cx;
     double zy = cy;
@@ -26,8 +27,8 @@ void main(void) {
         zy = y;
     }
 
-    float i = float(k);
-    float n = float(iterations);
+    //float i = float(k);
+    //float n = float(iterations);
 
 
     double pxc = k == iterations ? 0.0 : double(k)/(double(iterations)/2.56);
